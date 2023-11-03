@@ -1,0 +1,49 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #fff;
+}
+
+.printpaper .photoset {
+  z-index: 99 !important;
+  opacity: 1;
+}
+
+.printpaper {
+  width: 4in;
+  height: 6in;
+  margin: 1cm auto;
+  border: 1px #d3d3d3 solid;
+  border-radius: 5px;
+  background: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+.printpaper .q-card--bordered {
+  border: none !important;
+}
+
+.photoset img {
+  opacity: 1 !important;
+}
+.vdr-stick {
+  display: none;
+}
+@page {
+  size: A6;
+  margin: 0;
+}
+
+@media print {
+  .printpaper {
+    margin: 0;
+    border: none;
+    border-radius: none;
+    width: initial;
+    min-height: initial;
+    box-shadow: initial;
+    background: initial;
+    page-break-after: always;
+  }
+}
