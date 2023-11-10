@@ -3,11 +3,6 @@ body {
   background-color: #fff;
 }
 
-.printpaper .photoset {
-  z-index: 99 !important;
-  opacity: 1;
-}
-
 .printpaper {
   width: 4in;
   height: 6in;
@@ -18,6 +13,15 @@ body {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   position: relative;
+}
+
+.printpaper .printcard {
+  overflow: hidden;
+}
+
+.printpaper .photoset {
+  z-index: 99 !important;
+  opacity: 1;
 }
 
 .printpaper .q-card--bordered {
@@ -45,5 +49,6 @@ body {
     box-shadow: initial;
     background: initial;
     page-break-after: always;
+    display: inline-block;
   }
 }

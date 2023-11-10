@@ -8,3 +8,8 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>;
   export default component;
 }
+
+declare module 'vue3-flip-countdown' {
+  import type { ComponentPublicInstance } from 'vue';
+  export const Countdown: ComponentPublicInstance;
+}

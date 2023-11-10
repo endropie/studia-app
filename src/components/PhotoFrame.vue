@@ -5,10 +5,14 @@
       flat
       v-for="n in 1"
       :key="n"
+      class="printcard bg-transparent"
+      :class="{
+        'overflow-visible': Number(photoSelected) >= 0,
+        'overflow-hidden': Number(photoSelected) < 0,
+      }"
       :style="{
         width: $props.modelValue?.width || 'calc(4in)',
         height: $props.modelValue?.height || 'calc(6in)',
-        overflow: 'hidden',
         position: 'relative',
         margin: '0 auto',
       }"
@@ -40,12 +44,7 @@
         :y="Number(photo.top)"
         :deg="Number(photo.deg)"
         :zindex="index"
-        :mode="photo.mode"
-        :gridX="5"
-        :gridY="5"
         :aspectRatio="Boolean(photo.ratio)"
-        :snapToGrid="true"
-        :parentLimitation="false"
         @rotating="(x) => onRotate(index, x)"
         @resizing="(x) => onResize(index, x)"
         @dragging="(x) => onPosition(index, x)"
@@ -71,7 +70,15 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import vueDragResizeRotate from '@pinkcao/vue-drag-resize-rotate/packages/vueDragResizeRotate/vueDragResizeRotate.vue';
-import { FrameInterface } from 'src/composables';
+import { FrameInterface } from 'src/types/photoprint';
+
+interface ElementDRR {
+  top?: number;
+  left?: number;
+  width?: number;
+  height?: number;
+  deg?: number;
+}
 
 export default defineComponent({
   name: 'PhotoFrame',
@@ -87,16 +94,14 @@ export default defineComponent({
     return {
       srcDefaultFrame: 'images/frames/default.png',
       srcDefaultPhoto: 'images/person.png',
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      onPosition: (i: number, v: any) => {
+      onPosition: (i: number, v: ElementDRR) => {
         const photos = props.modelValue?.photos || [];
         if (photos[i]) {
           photos[i].top = Number(v.top);
           photos[i].left = Number(v.left);
         }
       },
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      onResize: (i: number, v: any) => {
+      onResize: (i: number, v: ElementDRR) => {
         const photos = props.modelValue?.photos || [];
         if (photos[i]) {
           photos[i].width = Number(v.width);
@@ -108,7 +113,7 @@ export default defineComponent({
           photos,
         });
       },
-      onRotate: (i: number, v: unknown) => {
+      onRotate: (i: number, v: number) => {
         const photos = props.modelValue?.photos || [];
         if (photos[i]) photos[i].deg = Number(v);
 

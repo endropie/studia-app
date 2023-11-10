@@ -1,3 +1,5 @@
+import { RecordTyper } from './index';
+
 export type MRecord<T> = {
   [K in keyof T]?: T[K] | null;
 };
@@ -33,3 +35,16 @@ export interface FrameInterface {
   height?: number | string;
   photos: PhotoInterface[];
 }
+
+export interface PrintSectionInterface {
+  room: string;
+  limit: number;
+  frames: FrameInterface[];
+}
+
+export type PrintSection = RecordTyper<{
+  room: string;
+  limit: number;
+  frames: FrameInterface[];
+  timeout_at: string;
+}>;
